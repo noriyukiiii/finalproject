@@ -1,20 +1,22 @@
 "use client";
 
 import Navbar from "../components/navbar/navbar";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Import ไอคอน
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 export default function Homepage() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalImages = 2; // จำนวนภาพทั้งหมด
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const containerWidth = container.offsetWidth;
 
-      const currentIndex = Math.round(container.scrollLeft / containerWidth);
       const newIndex = Math.max(currentIndex - 1, 0); // ลด index เพื่อเลื่อนซ้าย
+      setCurrentIndex(newIndex);
       container.scrollTo({
         left: newIndex * containerWidth,
         behavior: "smooth",
@@ -28,13 +30,26 @@ export default function Homepage() {
       const scrollWidth = container.scrollWidth;
       const containerWidth = container.offsetWidth;
 
-      const currentIndex = Math.round(container.scrollLeft / containerWidth);
       const newIndex = Math.min(
         currentIndex + 1,
         Math.floor(scrollWidth / containerWidth) - 1
       ); // เพิ่ม index เพื่อเลื่อนขวา
+      setCurrentIndex(newIndex);
       container.scrollTo({
         left: newIndex * containerWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollToIndex = (index: number) => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const containerWidth = container.offsetWidth;
+
+      setCurrentIndex(index);
+      container.scrollTo({
+        left: index * containerWidth,
         behavior: "smooth",
       });
     }
@@ -49,23 +64,27 @@ export default function Homepage() {
           {/* ปุ่มเลื่อนซ้าย */}
           <div
             onClick={scrollLeft}
-            className="absolute left-0 h-full top-1/2 transform -translate-y-1/2 z-10 w-16 bg-gray-400 hover:bg-gray-800 opacity-50 cursor-pointer flex items-center"
+            className="absolute left-0 h-full top-1/2 transform -translate-y-1/2 z-10 w-16 bg-gradient-to-r from-[#ff7731] to-transparent opacity-30 cursor-pointer flex items-center justify-center transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-[#ff7731] hover:to-transparent hover:opacity-80  hover:shadow-orange-300"
           >
-            <FaArrowLeft className="text-orange-300 mx-auto" size={20} />
-            </div>
-
-          {/* ปุ่มเลื่อนขวา */}
+            <IoIosArrowBack
+              className="text-orange-500 mx-auto opacity-100 "
+              size={60}
+            />
+          </div>
           <div
             onClick={scrollRight}
-            className="absolute right-0 h-full top-1/2 transform -translate-y-1/2 z-10 w-16 bg-gray-400 hover:bg-gray-800 opacity-50 cursor-pointer flex items-center"
+            className="absolute right-0 h-full top-1/2 transform -translate-y-1/2 z-10 w-16 bg-gradient-to-r from-transparent via-transparent to-orange-500 opacity-30 cursor-pointer flex items-center justify-center transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-transparent hover:to-orange-600 hover:opacity-80  hover:shadow-orange-300"
           >
-            <FaArrowRight className="text-orange-300 mx-auto" size={20} />
+            <IoIosArrowForward
+              className="text-orange-500 mx-auto opacity-100 "
+              size={60}
+            />
           </div>
 
           {/* คอนเทนเนอร์เลื่อน */}
           <div
             ref={scrollContainerRef}
-            className="flex overflow-x-scroll scrollbar-hide space-x-4 w-full h-[800px]"
+            className="flex overflow-x-scroll scrollbar-hide w-full h-[800px]"
           >
             <div className="flex-shrink-0 w-full h-full relative">
               <Image
@@ -83,6 +102,19 @@ export default function Homepage() {
                 className="object-cover"
               />
             </div>
+          </div>
+
+          {/* จุดนำทาง */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {Array.from({ length: totalImages }).map((_, index) => (
+              <div
+                key={index}
+                onClick={() => scrollToIndex(index)}
+                className={`w-3 h-3 rounded-full cursor-pointer ${
+                  index === currentIndex ? "bg-orange-500" : "bg-gray-300"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
