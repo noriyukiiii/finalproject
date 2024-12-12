@@ -1,5 +1,7 @@
+import Homepage from './homepage/page';
+
 export default function Home() {
-  return <nav className="bg-[#002379] w-full h-full ">
-    
-  </nav>;
+  return <>
+  <Homepage />
+  </>;
 }

@@ -3,15 +3,17 @@ import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <nav className="bg-[#002379] p-4 font-Prompt flex justify-between items-center">
+    <nav className="bg-[#002379] py-4 px-10 font-Prompt flex justify-between items-center ">
       <div className="flex items-center space-x-4">
-        <Image
-          src="/logoweb.png"
-          alt="Logo"
-          width={213}
-          height={56}
-          className="object-contain"
-        />
+        <Link href="/">
+          <Image
+            src="/logoweb.png"
+            alt="Logo"
+            width={213}
+            height={56}
+            className="object-contain"
+          />
+        </Link>
       </div>
 
       <ul className="flex gap-[40px]">
