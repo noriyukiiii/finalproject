@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { FaRegUserCircle } from "react-icons/fa";
 
 export default function Navbar() {
   return (
@@ -44,7 +45,7 @@ export default function Navbar() {
         </li>
         <li>
           <Link href="/" className="text-white hover:text-[#FF5F00] ">
-            user.icon
+            <FaRegUserCircle />
           </Link>
         </li>
       </ul>

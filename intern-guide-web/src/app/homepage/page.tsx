@@ -3,6 +3,7 @@
 import Navbar from "../components/navbar/navbar";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
+import Banner from "./components/banner";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 export default function Homepage() {
@@ -96,7 +97,7 @@ export default function Homepage() {
             </div>
             <div className="flex-shrink-0 w-full h-full relative">
               <Image
-                src="/homepage_recommend.png"
+                src="/commingsoon.jpg"
                 alt="Another Recommendation"
                 fill
                 className="object-cover"
@@ -117,6 +118,7 @@ export default function Homepage() {
             ))}
           </div>
         </div>
+        <Banner />
       </div>
     </>
   );

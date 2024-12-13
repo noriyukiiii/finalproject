@@ -10,6 +10,7 @@ export default {
     extend: {
       fontFamily: {
         Prompt: ['Prompt', 'sans-serif'], // เพิ่ม Prompt ที่นี่
+        Sarabun: ['Sarabun', 'ital'], // เพิ่ม Prompt ที่นี่
       },
       colors: {
         background: "var(--background)",
